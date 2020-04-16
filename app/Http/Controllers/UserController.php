@@ -19,7 +19,8 @@ class UserController extends Controller
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
         
-    
-        return $user->createToken($request->name)->plainTextToken;
+        return response($user->createToken($request->name)->plainTextToken, 200)
+        ->header('Content-Type', 'text/plain');
+
     }
 }
