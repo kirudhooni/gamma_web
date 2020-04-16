@@ -1,4 +1,5 @@
-import axios from 'axios';
+
+
 
 const state = {
     users : [
@@ -18,8 +19,8 @@ const actions = {
     userLogin: ({commit}, payload) => {
         return new Promise((success, error) => {
                 console.log(payload)
-                axios.get('http://localhost:8000/sanctum/csrf-cookie').then(()=>{
-                    axios.post('http://localhost:8000/login', {
+                axios.get('sanctum/csrf-cookie').then(()=>{
+                    axios.post('login', {
                     email: payload.email,
                     password: payload.password
                     }).then(()=>{ console.log("logged in successfuly")})
