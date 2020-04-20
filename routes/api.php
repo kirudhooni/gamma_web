@@ -16,9 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+
+
 
 // Route::post('/sanctum/token', function (Request $request) {
 //     $request->validate([
@@ -42,3 +47,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
    
 
 Route::post('/register', 'UserController@register'); 
+Route::post('/login', 'UserController@login');
+Route::middleware('auth:sanctum')->post('/push-results', 'SpectralDataController@store');
+Route::middleware('auth:sanctum')->get('/load-results/{id}', 'SpectralDataController@show');

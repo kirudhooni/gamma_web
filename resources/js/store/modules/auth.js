@@ -2,38 +2,50 @@
 
 
 const state = {
-    users : [
-        {
-            email : 'anaspltx@gmail.com',
-            password : 'test',
-        },
+    currentUser : '',
+    userLoggedin : false,
 
-    ]
 };
 
 const getters = {
-    allUsers: (state) => state.users
+    //currentUser: (state) => state.currentUser,
+    userLoggedin: (state) => state.userLoggedin,
+    currentUser: (state) => state.currentUser,
 };
 
 const actions = {
-    userLogin: ({commit}, payload) => {
-        return new Promise((success, error) => {
-                console.log(payload)
-                axios.get('sanctum/csrf-cookie').then(()=>{
-                    axios.post('login', {
-                    email: payload.email,
-                    password: payload.password
-                    }).then(()=>{ console.log("logged in successfuly")})
-                    .catch((error) => {
-                        console.log(error)
-                    });
-                });   
+    // userLogin: ({commit}, payload) => {
+    //     return new Promise((success, error) => {
+    //             console.log(payload)
+    //             axios.get('sanctum/csrf-cookie').then(()=>{
+    //                 axios.post('/api/login', {
+    //                 email: payload.email,
+    //                 password: payload.password
+    //                 }).then((response)=>{
+    //                      console.log("logged in successfuly");
+                         
+    //                      console.log(response.data['name']);
+                         
+                         
+    //                     })
+    //                 .catch((error) => {
+    //                     console.log(error)
+    //                 });
+    //             });   
             
-        })
-    }
+    //     })
+    // }
 };
 
-const mutations = {};
+const mutations = {
+ userLogin (state){
+     state.userLoggedin = true;
+ },
+ updateUserInfo(state, payload){
+     state.currentUser = payload;
+    //console.log(state.currentUser);
+ }
+};
 
 export default {
     state,

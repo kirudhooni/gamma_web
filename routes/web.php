@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/{any}', 'SpaController@index')->where('any', '.*');
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 

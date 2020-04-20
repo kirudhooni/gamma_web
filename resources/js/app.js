@@ -23,39 +23,43 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 import VueRouter from 'vue-router'
 import store from './store';
-Vue.use(VueRouter)
 import axios from 'axios';
+import Login from './views/Login'
+import Home from './views/Home.vue'
+import App from './views/App.vue'
+import {initialize} from './helpers/general';
 
-import App from './views/App'
-import Hello from './views/Hello'
-import Home from './views/Home'
+Vue.use(VueRouter)
 
 axios.defaults.withCredentials = true;
-
-const CONfig = {
-    API_URL_ROOT: 'http://localhost:8000',
-}
 
 const router = new VueRouter({
     mode: 'history',
     routes: [
         {
             path: '/',
-            name: 'home',
-            component: Home
+            name: 'loginpage',
+            component: Login
         },
         {
-            path: '/hello',
-            name: 'hello',
-            component: Hello,
-        },
+            path: '/home',
+            name: 'home',
+            component: Home,
+            meta:{
+                requiresAuth: true
+            }
+        }
+
     ],
 });
+
+initialize(store,router);
 
 const app = new Vue({
     el: '#app',
     store,
-    components: { App },
+    components: { 
+        App,
+    },
     router,
-    CONfig,
 });
