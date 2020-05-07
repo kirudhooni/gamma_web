@@ -2001,6 +2001,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   beforeCreate: function beforeCreate() {
@@ -2011,10 +2016,32 @@ __webpack_require__.r(__webpack_exports__);
       results: []
     };
   },
-  methods: {},
+  methods: {
+    downloadFile: function downloadFile(filename) {
+      console.log("/api/downloadFiles/".concat(filename));
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('sanctum/csrf-cookie').then(function () {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/downloadFiles/".concat(filename), {
+          responseType: 'blob'
+        }).then(function (response) {
+          console.log(response.data);
+          var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+          var fileLink = document.createElement('a');
+          fileLink.href = fileURL;
+          fileLink.setAttribute('download', filename + '.csv');
+          document.body.appendChild(fileLink);
+          fileLink.click();
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      });
+    }
+  },
   computed: {
     currentUser: function currentUser() {
       return this.$store.getters.currentUser;
+    },
+    isEmpty: function isEmpty() {
+      return this.results.length == 0;
     }
   },
   mounted: function mounted() {
@@ -2043,7 +2070,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
@@ -2077,7 +2104,7 @@ __webpack_require__.r(__webpack_exports__);
     authenticate: function authenticate() {
       var _this = this;
 
-      //    await this.$store.dispatch('userLogin', {
+      console.log(process.env.APP_URL); //    await this.$store.dispatch('userLogin', {
       //         email: this.form.email,
       //         password: this.form.password,
       //     });
@@ -2086,6 +2113,7 @@ __webpack_require__.r(__webpack_exports__);
       //    if(usersLoggedIn){
       //        console.log('user set');
       //    }
+
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('sanctum/csrf-cookie').then(function () {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/login', {
           email: _this.form.email,
@@ -2113,6 +2141,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   }
 });
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -38555,29 +38584,49 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "container" }, [
-          _c("table", { staticClass: "table" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              [
-                _vm._l(_vm.results, function(result, key) {
-                  return [
-                    _c("tr", [
-                      _c("td", [_vm._v(_vm._s(result.device_name))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(result.date_time))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(result.filename))])
-                    ])
-                  ]
-                })
-              ],
-              2
-            )
-          ])
-        ])
+        _vm.isEmpty
+          ? _c("div", { staticClass: "text-center" }, [
+              _c("h3", [_vm._v("Looks like you havn't uploaded any data yet!")])
+            ])
+          : _c("div", { staticClass: "container" }, [
+              _c("table", { staticClass: "table" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  [
+                    _vm._l(_vm.results, function(result, key) {
+                      return [
+                        _c("tr", [
+                          _c("td", [_vm._v(_vm._s(key))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(result.device_name))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(result.date_time))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-outline-secondary",
+                                attrs: {
+                                  href:
+                                    "https://kirudhooni.com/api/downloadFile/" +
+                                    result.filename,
+                                  role: "button"
+                                }
+                              },
+                              [_vm._v("Download")]
+                            )
+                          ])
+                        ])
+                      ]
+                    })
+                  ],
+                  2
+                )
+              ])
+            ])
       ]
     )
   ])
@@ -38589,6 +38638,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", { staticClass: "thead-dark" }, [
       _c("tr", [
+        _c("th", [_vm._v("No.")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Device Name")]),
         _vm._v(" "),
         _c("th", [_vm._v("Date")]),
@@ -53748,7 +53799,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapActions", function() { return mapActions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNamespacedHelpers", function() { return createNamespacedHelpers; });
 /**
- * vuex v3.1.3
+ * vuex v3.2.0
  * (c) 2020 Evan You
  * @license MIT
  */
@@ -53876,6 +53927,10 @@ Module.prototype.getChild = function getChild (key) {
   return this._children[key]
 };
 
+Module.prototype.hasChild = function hasChild (key) {
+  return key in this._children
+};
+
 Module.prototype.update = function update (rawModule) {
   this._rawModule.namespaced = rawModule.namespaced;
   if (rawModule.actions) {
@@ -53966,6 +54021,13 @@ ModuleCollection.prototype.unregister = function unregister (path) {
   if (!parent.getChild(key).runtime) { return }
 
   parent.removeChild(key);
+};
+
+ModuleCollection.prototype.isRegistered = function isRegistered (path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+
+  return parent.hasChild(key)
 };
 
 function update (path, targetModule, newModule) {
@@ -54262,6 +54324,16 @@ Store.prototype.unregisterModule = function unregisterModule (path) {
     Vue.delete(parentState, path[path.length - 1]);
   });
   resetStore(this);
+};
+
+Store.prototype.hasModule = function hasModule (path) {
+  if (typeof path === 'string') { path = [path]; }
+
+  if (true) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  return this._modules.isRegistered(path)
 };
 
 Store.prototype.hotUpdate = function hotUpdate (newOptions) {
@@ -54788,7 +54860,7 @@ function getModuleByNamespace (store, helper, namespace) {
 var index_esm = {
   Store: Store,
   install: install,
-  version: '3.1.3',
+  version: '3.2.0',
   mapState: mapState,
   mapMutations: mapMutations,
   mapGetters: mapGetters,
@@ -55430,8 +55502,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\gamma_website\gamma_website\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\gamma_website\gamma_website\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /var/www/html/gamma_web/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/gamma_web/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

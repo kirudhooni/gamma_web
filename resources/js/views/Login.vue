@@ -33,6 +33,7 @@ import axios from 'axios'
 
         methods:{
              authenticate () {
+			console.log(process.env.APP_URL);
             //    await this.$store.dispatch('userLogin', {
             //         email: this.form.email,
             //         password: this.form.password,

@@ -23,9 +23,16 @@ class SpectralDataController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function download($filename)
     {
-        //
+	//	$headers = [
+	//	'Content-Disposition': 'attachment;filename='.$filename.'.csv',
+	//	];
+		$path = storage_path().'/'.'files'.'/uploads/'.$filename.'.csv';
+      return response()->download($path,$filename.'.csv',['Content-Description' =>  'File Transfer','Content-Type' => 'application/octet-stream','Content-Disposition' => 'attachment; filename='.$filename.'.csv']);
+//	return $filename;
+//	 return Response::download($path);
+//	return $path;
     }
 
     /**
@@ -44,12 +51,12 @@ class SpectralDataController extends Controller
             'data' => 'required',
         ]);
 
-        //$result = SpectralData::create($request->only('device_name', 'date_time', 'filename', 'user_id'));
+        $result = SpectralData::create($request->only('device_name', 'date_time', 'filename', 'user_id'));
         
        
      
 
-        Storage::disk('uploads')->put('file22.csv', $request->data);
+        Storage::disk('uploads')->put($request->filename.'.csv', $request->data);
         
         return response()->json([
             "result_added" => true
@@ -64,8 +71,8 @@ class SpectralDataController extends Controller
      */
     public function show($id)
     {   
-        
-        $results = SpectralData::where('user_id', $id)->get();
+       
+        $results = SpectralData::where('user_id', $id)->orderBy('created_at','desc')->get();
         return response()->json([
             "results" => $results
         ], 200);

@@ -10,10 +10,14 @@
                         <hr>
                     </div>
                 </div>
-                <div class="container">
+		<div class="text-center" v-if="isEmpty">
+		<h3>Looks like you havn't uploaded any data yet!</h3>
+		</div>
+                <div v-else class="container">
                     <table class="table">
                     <thead class="thead-dark">
                         <tr>
+			    <th>No.</th>
                             <th>Device Name</th>
                             <th>Date</th>
                             <th>Data</th>
@@ -22,9 +26,10 @@
                     <tbody>
                             <template v-for="(result,key) in results" >  
                                 <tr>
+				    <td>{{key}}</td>
                                     <td >{{result.device_name}}</td>
                                     <td >{{result.date_time}}</td>
-                                    <td >{{result.filename}}</td>
+				    <td><a :href="'https://kirudhooni.com/api/downloadFile/'+result.filename" class="btn btn-outline-secondary" role="button">Download</a></td>
                                 </tr>
 
                             </template>
@@ -53,11 +58,35 @@ import axios from 'axios'
         },
 
         methods:{
+	downloadFile(filename){
+		console.log(`/api/downloadFiles/${filename}`)
+		 axios.get('sanctum/csrf-cookie').then(()=>{
+                    axios.get(`/api/downloadFiles/${filename}`,{
+			responseType: 'blob'
+			}
+			).then((response)=>{
+			console.log(response.data)
+                         var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                 var fileLink = document.createElement('a');
+                 fileLink.href = fileURL;
+                    fileLink.setAttribute('download', filename+'.csv');
+                    document.body.appendChild(fileLink);
+                    fileLink.click();
+                         
+                        })
+                    .catch((error) => {
+                        console.log(error)
+                    });
+                }); 
+	}
     },
         computed:{
         currentUser(){
             return this.$store.getters.currentUser;
         },
+	isEmpty(){
+		return this.results.length == 0;
+	}
         
     },
     mounted(){
