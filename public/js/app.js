@@ -2252,6 +2252,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   beforeCreate: function beforeCreate() {
@@ -76374,166 +76395,8 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "welcome" }, [
-    _c(
-      "div",
-      {
-        staticStyle: {
-          "margin-top": "5%",
-          "margin-left": "10%",
-          "margin-right": "10%"
-        }
-      },
-      [
-        _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            {
-              staticClass: "col-md-12 text-center",
-              attrs: { id: "user-welcome" }
-            },
-            [
-              _c("h1", [
-                _vm._v("Welcome " + _vm._s(_vm.currentUser["name"]) + "!")
-              ])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _vm.loading
-          ? _c("div", [
-              _vm._m(0),
-              _vm._v(" "),
-              _vm.isEmpty
-                ? _c("div", { staticClass: "text-center" }, [
-                    _c("h3", [
-                      _vm._v("Looks like you havn't uploaded any data yet!")
-                    ])
-                  ])
-                : _c("div", { staticClass: "container" }, [
-                    _c("table", { staticClass: "table" }, [
-                      _vm._m(1),
-                      _vm._v(" "),
-                      _c(
-                        "tbody",
-                        [
-                          _vm._l(_vm.results, function(result, key) {
-                            return [
-                              _c("tr", [
-                                _c("td", [_vm._v(_vm._s(key))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(result.device_name))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(result.date_time))]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass:
-                                        "btn btn-outline-secondary btn-block",
-                                      attrs: {
-                                        href:
-                                          "/api/downloadFile/" +
-                                          result.filename,
-                                        role: "button"
-                                      }
-                                    },
-                                    [_vm._v("Download Raw")]
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass:
-                                        "btn btn-outline-secondary btn-block",
-                                      attrs: {
-                                        href:
-                                          "/api/downloadFile/" +
-                                          result.filename +
-                                          "_reconstructed",
-                                        role: "button"
-                                      }
-                                    },
-                                    [_vm._v("Download full")]
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  [
-                                    _c(
-                                      "router-link",
-                                      {
-                                        staticClass:
-                                          "btn btn-outline-secondary btn-block",
-                                        attrs: {
-                                          to:
-                                            "/detailed-data/" +
-                                            result.filename +
-                                            "_reconstructed"
-                                        }
-                                      },
-                                      [_vm._v("Details")]
-                                    )
-                                  ],
-                                  1
-                                )
-                              ])
-                            ]
-                          })
-                        ],
-                        2
-                      )
-                    ])
-                  ])
-            ])
-          : _c("div", [
-              _vm.isEmpty
-                ? _c("div", { staticClass: "text-center" }, [
-                    _c("h3", [_vm._v("Looking for your data...")])
-                  ])
-                : _vm._e()
-            ])
-      ]
-    )
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "col-md-12 text-center", attrs: { id: "user-welcome" } },
-      [_c("h3", [_vm._v("Here's your data")]), _vm._v(" "), _c("hr")]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-dark" }, [
-      _c("tr", [
-        _c("th", [_vm._v("No.")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Device Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Date")]),
-        _vm._v(" "),
-        _c("th", { attrs: { colspan: "3" } }, [_vm._v("Data")])
-      ])
-    ])
-  }
-]
-render._withStripped = true
+var render = function () {}
+var staticRenderFns = []
 
 
 

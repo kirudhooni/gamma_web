@@ -25,6 +25,27 @@
                                     <th>Device Name</th>
                                     <th>Date</th>
                                     <th colspan="3" >Data</th>
+                </div>
+		<div class="text-center" v-if="isEmpty">
+		<h3>Looks like you havn't uploaded any data yet!</h3>
+		</div>
+                <div v-else class="container">
+                    <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+			    <th>No.</th>
+                            <th>Device Name</th>
+                            <th>Date</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <template v-for="(result,key) in results" >  
+                                <tr>
+				    <td>{{key}}</td>
+                                    <td >{{result.device_name}}</td>
+                                    <td >{{result.date_time}}</td>
+				    <td><a :href="'https://kirudhooni.com/api/downloadFile/'+result.filename" class="btn btn-outline-secondary" role="button">Download</a></td>
                                 </tr>
                             </thead>
                             <tbody>
