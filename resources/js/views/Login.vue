@@ -33,6 +33,7 @@ import axios from 'axios'
 
         methods:{
              authenticate () {
+			console.log(process.env.APP_URL);
             //    await this.$store.dispatch('userLogin', {
             //         email: this.form.email,
             //         password: this.form.password,
@@ -85,7 +86,7 @@ import axios from 'axios'
 
 * { -webkit-box-sizing:border-box; -moz-box-sizing:border-box; -ms-box-sizing:border-box; -o-box-sizing:border-box; box-sizing:border-box; }
 
-html { width: 100%; height:100%; overflow:hidden; }
+html { width: 100%; height:100%; }
 
 body { 
     width: 100%;

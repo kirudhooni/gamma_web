@@ -52,8 +52,8 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
-
+   // 'url' => env('APP_URL', 'http://localhost'),
+    'url' => 'https://kirudhooni.com/gamma_web/public',
     'asset_url' => env('ASSET_URL', null),
 
     /*

@@ -26,8 +26,10 @@ import store from './store';
 import axios from 'axios';
 import Login from './views/Login'
 import Home from './views/Home.vue'
+import DetailedData from './views/DetailedData.vue'
 import App from './views/App.vue'
 import {initialize} from './helpers/general';
+import LineChart from "./components/LineChart";
 
 Vue.use(VueRouter)
 
@@ -48,6 +50,14 @@ const router = new VueRouter({
             meta:{
                 requiresAuth: true
             }
+        },
+        {
+            path: '/detailed-data/:filename',
+            name: 'detailed-data',
+            component: DetailedData,
+            meta:{
+                requiresAuth: true
+            }
         }
 
     ],
@@ -60,6 +70,7 @@ const app = new Vue({
     store,
     components: { 
         App,
+        LineChart,
     },
     router,
 });

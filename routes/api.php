@@ -49,4 +49,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', 'UserController@register'); 
 Route::post('/login', 'UserController@login');
 Route::middleware('auth:sanctum')->post('/push-results', 'SpectralDataController@store');
-Route::middleware('auth:sanctum')->get('/load-results/{id}', 'SpectralDataController@show');
+Route::get('/load-results/{id}', 'SpectralDataController@show');
+Route::get('/load-results-details/{filename}', 'SpectralDataController@showDetails');
+Route::get('/downloadFile/{filename}','SpectralDataController@download')->name('download');
